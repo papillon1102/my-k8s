@@ -52,7 +52,7 @@ jobs:
     # Setup gcloud CLI
     - uses: 'google-github-actions/auth@v0'
       with:
-        credentials_json: '${{ secrets.GCP_SA_KEY }}'
+        "credentials_json": '${{ secrets.GCP_SA_KEY }}'
 
     # Get the GKE credentials so we can deploy to the cluster
     - run: |-
