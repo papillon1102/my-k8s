@@ -40,6 +40,7 @@ jobs:
         docker push papillon1102/multi-client:${{steps.vars.outputs.tag}}
         docker push papillon1102/multi-server:${{steps.vars.outputs.tag}}
         docker push papillon1102/multi-worker:${{steps.vars.outputs.tag}}
+
   setup-and-deploy:
     needs: publish-to-hub
     name: Setup and Deploy to k8s
@@ -58,7 +59,6 @@ jobs:
     # Get the GKE credentials so we can deploy to the cluster
     - run: |-
         gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
-
     # Deploy sample image to the GKE cluster
     - name: Get the version
       id: vars
@@ -66,7 +66,7 @@ jobs:
     - name: Deploy
       run: |-
         kubectl apply -f k8s/
-        kubectl set image deployments/server-deployment server=stephen-grider/multi-server:${{steps.vars.outputs.tag}}
-        kubectl set image deployments/client-deployment client=stephen-grider/multi-client:${{steps.vars.outputs.tag}}
-        kubectl set image deployments/worker-deployment worker=stephen-grider/multi-worker:${{steps.vars.outputs.tag}}
+        kubectl set image deployments/server-deployment server=rowin1125/multi-server:${{steps.vars.outputs.tag}}
+        kubectl set image deployments/client-deployment client=rowin1125/multi-client:${{steps.vars.outputs.tag}}
+        kubectl set image deployments/worker-deployment worker=rowin1125/multi-worker:${{steps.vars.outputs.tag}}
         kubectl get services -o wide
